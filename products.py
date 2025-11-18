@@ -15,6 +15,8 @@ class Product:
     def get_quantity(self) -> int:
         return self.__quantity
     def set_quantity(self, quantity):
+        if quantity < 0:
+            raise ValueError("Quantity cannot be negative")
         self.__quantity = quantity
     def is_active(self) -> bool:
         return self.__active
@@ -28,3 +30,16 @@ class Product:
 
     def show(self):
         print(self)
+
+    def buy(self, quantity) -> float:
+        if quantity <= 0:
+            raise ValueError("Quantity cannot be less or equal to zero")
+        if quantity > self.__quantity:
+            raise ValueError("Not enough quantity")
+        self.__quantity -= quantity
+        return self.__price * quantity
+
+    def add_quantity(self, quantity):
+        if quantity < 0:
+            raise ValueError("Quantity cannot be negative")
+        self.__quantity += quantity
