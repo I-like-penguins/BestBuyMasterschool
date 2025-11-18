@@ -1,25 +1,60 @@
+import store
 from products import Product
 from store import Store
 
+def start(store_obj: Store):
+    is_not_quit = True
+    while is_not_quit:
+        print("Welcome to the Best Buy Store")
+        print("1. List all products in store")
+        print("2. Show total amount in store")
+        print("3. Make an Order")
+        print("4. Quit")
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            print("View Products:")
+            i = 0
+            for product in store_obj.get_active_products():
+                print(f"{i}. {product}")
+                i += 1
+            print(f"")
+        if choice == "2":
+            print("View Total Amount")
+            print(f"Total of {store_obj.get_total_quantity()} items in store.")
+            print(f"")
+        if choice == "3":
+            print("Make an Order")
+            i = 1
+            for product in store_obj.get_active_products():
+                print(f"{i}. {product}")
+                i += 1
+            print(f"When you want to finish order, enter empty text.")
+            shopping_list = []
+            while True:
+                product_number = input("Which product # do you want? ")
+                if product_number == "":
+                    break
+                quantity = int(input("What amount do you want? "))
+                try:
+                    shopping_list.append((store_obj.get_active_products()[int(product_number)-1], quantity))
+                    print(f"Product added to list!")
+                except IndexError:
+                    print("Invalid product number!")
+            print(f"Order made! Total payment: {store_obj.order(shopping_list)}")
+            print(f"")
+        if choice == "4":
+            is_not_quit = False
+            print("Thank you for shopping with us!")
+    return
 
 def main():
-    bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
-    mac = Product("MacBook Air M2", price=1450, quantity=100)
-
-    best_buy = Store([bose, mac])
-    price = best_buy.order([(bose, 5), (mac, 30), (bose, 10)])
-    print(f"Order cost: {price} dollars.")
-
+    # setup initial stock of inventory
     product_list = [Product("MacBook Air M2", price=1450, quantity=100),
                     Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-                    Product("Google Pixel 7", price=500, quantity=250),
+                    Product("Google Pixel 7", price=500, quantity=250)
                     ]
-
     best_buy = Store(product_list)
-    products = best_buy.get_active_products()
-    print(f"Total Quantity:  {best_buy.get_total_quantity()}")
-    print(f"Number of active products: {best_buy.get_number_of_active_products()}")
-    print(f"Sum: {best_buy.order([(products[0], 1), (products[1], 2)])}")
+    start(best_buy)
 
 if __name__ == "__main__":
     main()
