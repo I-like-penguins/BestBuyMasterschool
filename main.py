@@ -13,7 +13,7 @@ def start(store_obj: Store):
         choice = input("Enter your choice: ")
         if choice == "1":
             print("View Products:")
-            i = 0
+            i = 1
             for product in store_obj.get_active_products():
                 print(f"{i}. {product}")
                 i += 1
