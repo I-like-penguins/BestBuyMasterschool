@@ -34,7 +34,17 @@ def start(store_obj: Store):
                 product_number = input("Which product # do you want? ")
                 if product_number == "":
                     break
-                quantity = int(input("What amount do you want? "))
+                if not product_number.isdigit():
+                    print("Invalid product number!")
+                    continue
+                if int(product_number) > len(store_obj.get_active_products()):
+                    print("Invalid product number!")
+                    continue
+                try:
+                    quantity = int(input("What amount do you want? "))
+                except ValueError:
+                    print("Invalid quantity!")
+                    continue
                 try:
                     tmp_product = store_obj.get_active_products()[int(product_number)-1]
                     if tmp_product.get_quantity() > quantity:
