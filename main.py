@@ -36,8 +36,12 @@ def start(store_obj: Store):
                     break
                 quantity = int(input("What amount do you want? "))
                 try:
-                    shopping_list.append((store_obj.get_active_products()[int(product_number)-1], quantity))
-                    print(f"Product added to list!")
+                    tmp_product = store_obj.get_active_products()[int(product_number)-1]
+                    if tmp_product.get_quantity() > quantity:
+                        shopping_list.append((tmp_product, quantity))
+                        print(f"Product added to list!")
+                    else:
+                        print(f"Product is out of stock!")
                 except IndexError:
                     print("Invalid product number!")
             print(f"Order made! Total payment: {store_obj.order(shopping_list)}")
