@@ -25,6 +25,7 @@ def start(store_obj: Store):
         if choice == "3":
             print("Make an Order")
             i = 1
+            total_price = 0.0
             for product in store_obj.get_active_products():
                 print(f"{i}. {product}")
                 i += 1
@@ -46,15 +47,15 @@ def start(store_obj: Store):
                     print("Invalid quantity!")
                     continue
                 try:
-                    tmp_product = store_obj.get_active_products()[int(product_number)-1]
-                    if tmp_product.get_quantity() > quantity:
-                        shopping_list.append((tmp_product, quantity))
+                    tmp_product = store_obj.get_products()[int(product_number)-1]
+                    if tmp_product.get_quantity() >= quantity and tmp_product.is_active():
+                        total_price += tmp_product.buy(quantity)
                         print(f"Product added to list!")
                     else:
                         print(f"Product is out of stock!")
                 except IndexError:
                     print("Invalid product number!")
-            print(f"Order made! Total payment: {store_obj.order(shopping_list)}")
+            print(f"Order made! Total payment: {total_price}")
             print(f"")
         if choice == "4":
             is_not_quit = False
