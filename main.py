@@ -3,6 +3,7 @@ from products import Product
 from store import Store
 
 def start(store_obj: Store):
+    """Start the application. Draws the CLI and handles user input."""
     is_not_quit = True
     while is_not_quit:
         print("Welcome to the Best Buy Store")

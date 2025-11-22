@@ -1,6 +1,7 @@
 import products as pd
 
 class Store:
+    """Store class that holds a list of products and provides methods to manipulate them. Needs class products."""
     def __init__(self, products = []):
         """Initalize the store with products or an empty list of product-objects"""
         if products is None or len(products) == 0:

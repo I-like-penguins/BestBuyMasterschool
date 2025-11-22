@@ -1,4 +1,6 @@
 class Product:
+    """Product class. Stores product name, price and quantity. Can be active when above zero quantity or inactive
+    when below zero."""
     def __init__(self, name, price, quantity):
         if name == "":
             raise ValueError("Name cannot be empty")
@@ -37,6 +39,8 @@ class Product:
         print(self)
 
     def buy(self, quantity) -> float:
+        """Return the total price of the product. Changes quantity of product accordingly and deactivates
+        product if quantity reaches 0."""
         if quantity <= 0:
             raise ValueError("Quantity cannot be less or equal to zero")
         if quantity > self.__quantity:
